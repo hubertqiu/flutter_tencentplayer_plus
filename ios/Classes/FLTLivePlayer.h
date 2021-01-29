@@ -15,9 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FLTVideoPlayer : NSObject<FlutterTexture, FlutterStreamHandler,TXVideoCustomProcessDelegate,TXVodPlayListener, FLTPlayerProtocol>
-
-@property(readonly,nonatomic) TXVodPlayer* txPlayer;
+@interface FLTLivePlayer : NSObject<FlutterTexture, FlutterStreamHandler,TXVideoCustomProcessDelegate,TXLivePlayListener, FLTPlayerProtocol>
+@property(readonly,nonatomic) TXLivePlayer* txLivePlayer;
 @property(nonatomic) FlutterEventChannel* eventChannel;
 
 //ios主动和flutter通信

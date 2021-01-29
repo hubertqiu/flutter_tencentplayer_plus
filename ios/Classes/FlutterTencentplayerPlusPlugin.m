@@ -1,6 +1,8 @@
 #import "FlutterTencentplayerPlusPlugin.h"
 
+#import "FLTPlayerProtocol.h"
 #import "FLTVideoPlayer.h"
+#import "FLTLivePlayer.h"
 #import "FLTFrameUpdater.h"
 #import "FLTDownLoadManager.h"
 
@@ -55,9 +57,16 @@ NSObject<FlutterPluginRegistrar>* mRegistrar;
         [self disposeAllPlayers];
         result(nil);
     }else if([@"create" isEqualToString:call.method]){
-       // [self disposeAllPlayers];
+        
+        NSDictionary* argsMap = call.arguments;
         FLTFrameUpdater* frameUpdater = [[FLTFrameUpdater alloc] initWithRegistry:_registry];
-        FLTVideoPlayer* player= [[FLTVideoPlayer alloc] initWithCall:call frameUpdater:frameUpdater registry:_registry messenger:_messenger];
+        NSObject<FLTPlayerProtocol>* player= nil;
+        if(argsMap[@"playType"] != nil) {
+            player= [[FLTLivePlayer alloc] initWithCall:call frameUpdater:frameUpdater registry:_registry messenger:_messenger];
+        }
+        else {
+            player= [[FLTVideoPlayer alloc] initWithCall:call frameUpdater:frameUpdater registry:_registry messenger:_messenger];
+        }
         
         if (player) {
             [self onPlayerSetup:player frameUpdater:frameUpdater result:result];
@@ -115,7 +124,7 @@ NSObject<FlutterPluginRegistrar>* mRegistrar;
 //    int64_t textureId = ((NSNumber*)argsMap[@"textureId"]).unsignedIntegerValue;
     //NSString *textureIdStr = [NSString stringWithFormat: @"%lld",textureId];
     //FLTVideoPlayer* player = _players[textureIdStr];
-    FLTVideoPlayer* player = _players[@(textureId)];
+    NSObject<FLTPlayerProtocol>* player = _players[@(textureId)];
 
     if([@"play" isEqualToString:call.method]){
         [player resume];
@@ -158,7 +167,7 @@ NSObject<FlutterPluginRegistrar>* mRegistrar;
     
 }
 
-- (void)onPlayerSetup:(FLTVideoPlayer*)player
+- (void)onPlayerSetup:(NSObject<FLTPlayerProtocol>*)player
          frameUpdater:(FLTFrameUpdater*)frameUpdater
                result:(FlutterResult)result {
     _players[@(player.textureId)] = player;
