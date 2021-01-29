@@ -256,6 +256,10 @@ public class FlutterTencentplayerPlusPlugin implements MethodCallHandler {
       mVodPlayer.setRate(rate);
     }
 
+    void setMute(Boolean mute) {
+      mVodPlayer.setMute(mute);
+    }
+
     void setBitrateIndex(int index) {
       mVodPlayer.setBitrateIndex(index);
     }

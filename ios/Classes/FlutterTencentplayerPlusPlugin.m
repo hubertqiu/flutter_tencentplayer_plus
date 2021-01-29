@@ -142,6 +142,10 @@ NSObject<FlutterPluginRegistrar>* mRegistrar;
         int  index = [[argsMap objectForKey:@"index"] intValue];
         [player setBitrateIndex:index];
         result(nil);
+    }else if([@"setMute" isEqualToString:call.method]){
+        BOOL  mute = [[argsMap objectForKey:@"mute"] boolValue];
+        [player setMute:mute];
+        result(nil);
     }else if([@"dispose" isEqualToString:call.method]){
         [_registry unregisterTexture:textureId];
         [player dispose];

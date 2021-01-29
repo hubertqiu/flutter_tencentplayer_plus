@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_tencentplayer_plus/flutter_tencentplayer_plus.dart';
-import 'package:flutter_tencentplayer_plus_example/video_play_page2.dart';
+import 'video_play_page2.dart';
 
 class VideoPlayPage extends StatefulWidget {
   @override
@@ -39,17 +39,14 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
   String downloadRes2 =
       '/storage/emulated/0/tencentdownload/txdownload/cf3e281653e562303c8c2b14729ba7f5.m3u8.sqlite';
 
-
-
   @override
   void initState() {
     super.initState();
     addListener();
     initPlatformState();
-
   }
 
-  addListener(){
+  addListener() {
     listener = () {
       if (!mounted) {
         return;
@@ -69,7 +66,7 @@ class _VideoPlayPageState extends State<VideoPlayPage> {
 //     _controller = TencentPlayerController.network(null, playerConfig:  PlayerConfig(
 //        auth: {"appId": , "fileId": ''}
 //    ))
-    _controller = TencentPlayerController.network(spe3,
+    _controller = TencentPlayerController.network(videoUrl,
         playerConfig: PlayerConfig(autoPlay: false))
 
 //        _controller = TencentPlayerController.asset('static/tencent1.mp4')
